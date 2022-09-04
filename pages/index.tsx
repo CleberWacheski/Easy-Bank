@@ -1,7 +1,8 @@
-import { Box, Flex, SimpleGrid } from "@chakra-ui/react";
-import { CardCredit } from "../src/components/CardCredit";
+import { Flex, SimpleGrid } from "@chakra-ui/react";
+import { ChartComponent } from "../src/components/ChartComponent";
 import { Header } from "../src/components/Header";
 import { MoneyInformationCard } from "../src/components/MoneyInformationCard";
+import { MyGoalsCard } from "../src/components/MyGoalsCard";
 import { NavigationBar } from "../src/components/NavigationBar";
 import { TransactionHistory } from "../src/components/TransactionHistory";
 
@@ -17,25 +18,25 @@ export default function Dashboard() {
             >
                 <Header />
                 <SimpleGrid
-                     columns={2}
-                     spacing={20}
+                    columns={2}
+                    spacing={20}
+                    px='3%'
                 >
                     <Flex
                         flexDir='column'
                         alignSelf='flex-start'
-                        ml='5%'
                     >
                         <MoneyInformationCard />
+                        <ChartComponent/>
                         <TransactionHistory />
 
                     </Flex>
                     <Flex
                         flexDir='column'
-                        alignSelf='flex-start'
-                        flex='1'
-                        mr='5%'
+                        // justifySelf='flex-end'
+                        pt='4%'
                     >
-                        <CardCredit/>
+                        <MyGoalsCard />
 
                     </Flex>
                 </SimpleGrid>
