@@ -30,8 +30,8 @@ export function NavigationLink({name,icon, ...rest} : NavigationLinkProps) {
                     color: (!active) && 'blue.300' 
                 }}
             >
-                <Icon as={icon} fontSize={24} />
-                <Text fontSize={18} mt='3px'>{name}</Text>
+                <Icon as={icon} fontSize={22} />
+                <Text fontSize={16} mt='3px'>{name}</Text>
             </Flex>
         </Button>
     )

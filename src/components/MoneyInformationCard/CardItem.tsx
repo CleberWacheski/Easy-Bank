@@ -18,17 +18,17 @@ export function CardItem({icon,reference,value, ...rest} : CardItemProps) {
             <Icon 
             as={icon} 
             mb='8px'
-            fontSize={26}
+            fontSize={28}
             {...rest}
             />
             <Text
-            fontSize={28}
+            fontSize={30}
             fontWeight='extrabold'
             >
                 {value}
             </Text>
             <Text
-            fontSize={16}
+            fontSize={18}
             >
                 {reference}
             </Text>
