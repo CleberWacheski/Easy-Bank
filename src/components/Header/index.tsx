@@ -6,7 +6,7 @@ export function Header() {
         <Flex
             w='90%'
             justifyContent='space-between'
-            py='20px'
+            mt='20px'
         >
             <Heading 
                 fontSize={24}

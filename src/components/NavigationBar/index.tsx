@@ -1,23 +1,26 @@
-import { Flex, HStack, Text, VStack } from "@chakra-ui/react";
+import { Flex, HStack, Text, useDisclosure, VStack } from "@chakra-ui/react";
 import Image from "next/image";
 import { NavigationLink } from "./NavigationLink";
 
-import { HiHome, HiCreditCard } from 'react-icons/hi'
-import { RiMoneyDollarBoxFill } from 'react-icons/ri'
-import { MdPayments, MdInsights } from 'react-icons/md'
-import { IoSettingsSharp, IoLogOut } from 'react-icons/io5'
+import { HiHome } from 'react-icons/hi'
+import { IoLogOut } from 'react-icons/io5'
+import { MdAddBox } from "react-icons/md";
+import { TransactionComponent } from "../Modal/TransactionsModal";
+import { GoalsComponent } from "../Modal/GoalsModal";
 
 export function NavigationBar() {
+
+
     return (
         <Flex
-            w={287}
+            w={250}
             bg='teal.900'
             h='100vh'
             align='flex-start'
             justify='flex-start'
             flexDirection='column'
         >
-            <HStack mt='54px' spacing='8px' ml='42px'>
+            <HStack mt='54px' spacing='8px' ml='15%'>
                 <Image
                     src='/Logo.svg'
                     alt="Logo do easy bank"
@@ -40,11 +43,8 @@ export function NavigationBar() {
                 spacing='16px'
             >
                 <NavigationLink name='Dashboard' icon={HiHome} />
-                <NavigationLink name="Transactions" icon={RiMoneyDollarBoxFill} />
-                <NavigationLink name='Payment' icon={MdPayments} />
-                <NavigationLink name='Card' icon={HiCreditCard} />
-                <NavigationLink name='Insights' icon={MdInsights} />
-                <NavigationLink name='Settings' icon={IoSettingsSharp} />
+                <TransactionComponent/>
+                <GoalsComponent/>
 
             </VStack>
             <NavigationLink

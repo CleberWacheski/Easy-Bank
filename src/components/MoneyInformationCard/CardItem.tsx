@@ -12,7 +12,8 @@ export function CardItem({icon,reference,value, ...rest} : CardItemProps) {
     return (
         <Flex
             flexDirection='column'
-            p='16px'
+            px='3%'
+            mt='10px'
             gap='7px'
         >
             <Icon 

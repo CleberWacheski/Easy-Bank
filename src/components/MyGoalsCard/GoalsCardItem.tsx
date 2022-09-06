@@ -3,13 +3,13 @@ import { ElementType } from "react";
 
 
 interface GoalsCardItemProps {
-    icon : ElementType;
-    name : string;
-    progressValue : number
+    icon: ElementType;
+    name: string;
+    progressValue: number
 }
 
 
-export function GoalsCardItem({icon,name,progressValue} : GoalsCardItemProps) {
+export function GoalsCardItem({ icon, name, progressValue }: GoalsCardItemProps) {
 
     return (
         <Flex
@@ -20,8 +20,8 @@ export function GoalsCardItem({icon,name,progressValue} : GoalsCardItemProps) {
             _hover={{
                 bg: 'blue.300'
             }}
-        >   
-            <Icon 
+        >
+            <Icon
                 fontSize={45}
                 color='gray.500'
                 as={icon}
@@ -30,12 +30,25 @@ export function GoalsCardItem({icon,name,progressValue} : GoalsCardItemProps) {
             <Stack
                 w='100%'
             >
-                <Text
-                    fontSize={14}
-                    fontWeight='medium'
+                <Flex
+                    align='center'
+                    justify='space-between'
+                    px='2px'
                 >
-                    {name}
-                </Text>
+
+                    <Text
+                        fontSize={14}
+                        fontWeight='medium'
+                    >
+                        {name}
+                    </Text>
+                    <Text
+                        fontWeight='bold'
+                        fontSize={16}
+                    >
+                        {progressValue}%
+                    </Text>
+                </Flex>
                 <Progress
                     value={progressValue}
                     hasStripe

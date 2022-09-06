@@ -1,21 +1,16 @@
-import { Flex, Heading, HStack, Icon, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
-import { HiCurrencyDollar } from "react-icons/hi";
+import { Flex,Table, TableContainer, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
 import { TransactionHistoryLineTable } from "./TransactionHistoryLineTable";
 
 export function TransactionHistory() {
+
+
     return (
         <Flex
             flexDir='column'
-            gap='16px'
             align='flex-start'
+            mt='25px'
             w='max-content'
         >
-            <Heading
-                fontSize={20}
-                fontWeight='semibold'
-            >
-                Transaction History
-            </Heading>
             <TableContainer>
                 <Table
                     size='sm'

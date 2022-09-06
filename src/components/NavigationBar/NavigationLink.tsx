@@ -11,7 +11,7 @@ export function NavigationLink({name,icon, ...rest} : NavigationLinkProps) {
 
     const {asPath} = useRouter()
 
-    let active = ((asPath === `/${name.toLowerCase()}` )|| (asPath=== '/' && name === 'Dashboard'))
+    const active = ((asPath === `/${name.toLowerCase()}` )|| (asPath=== '/' && name === 'Dashboard'))
 
     return (
         <Button
@@ -30,7 +30,8 @@ export function NavigationLink({name,icon, ...rest} : NavigationLinkProps) {
                     color: (!active) && 'blue.300' 
                 }}
             >
-                <Icon as={icon} fontSize={22} />
+                <Icon as={icon} fontSize={28} 
+                />
                 <Text fontSize={16} mt='3px'>{name}</Text>
             </Flex>
         </Button>
