@@ -37,7 +37,6 @@ export function FormGoals() {
         }
 
         await new Promise(resolve=> setTimeout(resolve,1500))
-        console.log(data)
 
         reset()
     }

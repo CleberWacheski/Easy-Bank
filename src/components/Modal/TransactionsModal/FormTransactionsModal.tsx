@@ -10,10 +10,11 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { TransactionButtonModal } from './TransactionButtonModal'
-
+import {useMutation} from 'react-query'
 import { useForm,SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import { api } from '../../../services/api'
 
 
 const schema = yup.object().shape({
@@ -27,10 +28,24 @@ interface FormPros {
     Amount : number;
 }
 
+interface TransactionProps extends FormPros {
+    Type : string;
+    Date : Date;
+    category : string
+}
+
 export function FormTransactionsModal() {
 
     const { register, handleSubmit,reset, formState: { errors,isSubmitting } } = useForm<FormPros>({
         resolver: yupResolver(schema)
+    })
+
+    const mutation = useMutation(async (transaction : TransactionProps) => {
+            api.post('addTransaction', {
+                Transaction : {
+                    ...transaction
+                }
+            })
     })
 
     const [type, setType] = useState('')
@@ -38,12 +53,14 @@ export function FormTransactionsModal() {
 
     const handleCreateNewTransaction : SubmitHandler<FormPros> = async (value,event) => {
         const data = {
-            name : value.Name,
-            amount : value.Amount,
+            Name : value.Name,
+            Amount : value.Amount,
             category,
-            type : type
+            Type : type,
+            Date : new Date ()
         }
-        await new Promise(resolve=> setTimeout(resolve,1500))
+        
+        mutation.mutateAsync(data)
         reset()
 
 

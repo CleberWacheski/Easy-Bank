@@ -1,13 +1,25 @@
 import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
 import { theme } from '../../styles/global'
+import { SessionProvider } from 'next-auth/react'
+import { QueryClientProvider,QueryClient } from 'react-query'
+import {ReactQueryDevtools} from 'react-query/devtools'
 
-function MyApp({ Component, pageProps }: AppProps) {
+const queryClient = new QueryClient()
+
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+
 
   return (
-    <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <SessionProvider session={session}>
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider theme={theme}>
+          <Component {...pageProps} />
+          <ReactQueryDevtools/>
+        </ChakraProvider>
+      </QueryClientProvider>
+    </SessionProvider>
+
   )
 }
 
