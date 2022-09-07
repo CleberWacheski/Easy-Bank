@@ -10,25 +10,19 @@ import {
     Icon,
     Text,
     HStack,
-    FormControl,
-    FormLabel,
-    Input,
-    VStack,
-    Select,
     IconButton,
 } from '@chakra-ui/react'
 import { MdAddBox } from 'react-icons/md'
 import {AddIcon} from '@chakra-ui/icons'
-import { NavigationLink } from '../../NavigationBar/NavigationLink'
-import { TransactionButtonModal } from './TransactionButtonModal'
+import { NavigationLink } from '../../DrawerNavigation/NavigationLink'
 import { useState } from 'react'
+import { FormTransactionsModal } from './FormTransactionsModal'
 
 
 export function TransactionComponent() {
 
     const { onOpen, isOpen, onClose } = useDisclosure()
-    const [type, setType] = useState('')
-
+    
     return (
         <>
             <NavigationLink name="Transactions" icon={MdAddBox} onClick={onOpen} />
@@ -36,8 +30,15 @@ export function TransactionComponent() {
             <Modal isOpen={isOpen} onClose={onClose}>
 
                 <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>
+                <ModalContent
+                    bg='blue.800'
+                    color='black'
+                    fontWeight='extrabold'
+                >
+                    <ModalHeader
+                        color='white'
+                        fontWeight='bold'
+                    >
                         <HStack>
                             <Icon
                                 as={MdAddBox}
@@ -51,57 +52,9 @@ export function TransactionComponent() {
                     <ModalCloseButton />
 
                     <ModalBody>
-                        <FormControl
-                            p='18px'
-                        >
-                            <VStack
-                                align='flex-start'
-                            >
-                                <FormLabel>Name</FormLabel>
-                                <Input
-                                    variant='filled'
-                                />
-                                <FormLabel>Amount</FormLabel>
-                                <Input
-                                    type='number'
-                                    variant='filled'
-                                />
-                                <FormLabel>Category</FormLabel>
-                                <Select placeholder='Select Type' variant='filled'>
-                                    <option>Food</option>
-                                    <option>Shopping</option>
-                                    <option>Any</option>
-                                </Select>
-                                <HStack
-                                    pt='15px'
-                                >
-                                    <TransactionButtonModal
-                                        Type='Income'
-                                        active={type}
-                                        onClick={()=>setType('Income')}
-                                        
-                                    />
-                                    <TransactionButtonModal
-                                        Type='Expenses'
-                                        active={type}
-                                        onClick={()=>setType('Expenses')}
-                                    />
-                                    <TransactionButtonModal
-                                        Type='Savings'
-                                        active={type}
-                                        onClick={()=>setType('Savings')}
-                                    />
-                                </HStack>
-                            </VStack>
-                        </FormControl>
+                        <FormTransactionsModal/>
+
                     </ModalBody>
-                    <ModalFooter>
-                            <IconButton
-                                colorScheme='teal'
-                                aria-label='Search database'
-                                icon={<AddIcon />}
-                            />
-                    </ModalFooter>
                 </ModalContent>
             </Modal>
         </>

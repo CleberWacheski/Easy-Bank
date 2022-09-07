@@ -1,7 +1,7 @@
 
-export const isLessThan1100 = (isLessThan1100 : boolean) => {
+export const isLessThan1000 = (isLessThan1000 : boolean) => {
 
-    if (isLessThan1100) {
+    if (isLessThan1000) {
         return {
             columns: 0,
             rows: 2

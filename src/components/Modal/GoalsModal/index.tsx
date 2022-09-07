@@ -10,16 +10,12 @@ import {
     Icon,
     Text,
     HStack,
-    FormControl,
-    FormLabel,
-    Input,
-    VStack,
-    Select,
     IconButton,
 } from '@chakra-ui/react'
 import { MdAddBox } from 'react-icons/md'
 import {AddIcon} from '@chakra-ui/icons'
-import { NavigationLink } from '../../NavigationBar/NavigationLink'
+import { NavigationLink } from '../../DrawerNavigation/NavigationLink'
+import { FormGoals } from './FormGoals'
 
 
 export function GoalsComponent() {
@@ -49,38 +45,8 @@ export function GoalsComponent() {
                     <ModalCloseButton />
 
                     <ModalBody>
-                        <FormControl
-                            p='18px'
-                        >
-                            <VStack
-                                align='flex-start'
-                            >
-                                <FormLabel>Name</FormLabel>
-                                <Input
-                                    variant='filled'
-                                />
-                                <FormLabel>Amount</FormLabel>
-                                <Input
-                                    type='number'
-                                    variant='filled'
-                                />
-                                <FormLabel>Category</FormLabel>
-                                <Select placeholder='Select Type' variant='filled'>
-                                    <option>Computer</option>
-                                    <option>Car</option>
-                                    <option>Any</option>
-                                </Select>
-                                
-                            </VStack>
-                        </FormControl>
+                       <FormGoals/>
                     </ModalBody>
-                    <ModalFooter>
-                            <IconButton
-                                colorScheme='teal'
-                                aria-label='Search database'
-                                icon={<AddIcon />}
-                            />
-                    </ModalFooter>
                 </ModalContent>
             </Modal>
         </>

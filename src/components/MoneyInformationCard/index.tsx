@@ -6,7 +6,8 @@ import { RiMoneyDollarBoxFill } from 'react-icons/ri'
 export function MoneyInformationCard() {
     return (
         <Flex
-            gap='16px'
+            gap='45px'
+            alignSelf='center'
         >
             <CardItem 
                 reference="Balance"

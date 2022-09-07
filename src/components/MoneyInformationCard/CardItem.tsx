@@ -1,4 +1,4 @@
-import { Flex, Icon, Text , IconProps } from "@chakra-ui/react";
+import { Flex, Icon, Text , IconProps, VStack } from "@chakra-ui/react";
 import { ElementType } from "react";
 
 interface CardItemProps extends IconProps {
@@ -10,11 +10,10 @@ interface CardItemProps extends IconProps {
 
 export function CardItem({icon,reference,value, ...rest} : CardItemProps) {
     return (
-        <Flex
-            flexDirection='column'
-            px='3%'
+        <VStack
+            align='flex-start'
             mt='10px'
-            gap='7px'
+            spacing='7px'
         >
             <Icon 
             as={icon} 
@@ -34,6 +33,6 @@ export function CardItem({icon,reference,value, ...rest} : CardItemProps) {
                 {reference}
             </Text>
 
-        </Flex>
+        </VStack>
     )
 }

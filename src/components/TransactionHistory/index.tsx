@@ -1,4 +1,4 @@
-import { Flex,Table, TableContainer, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
+import { Flex,Heading,Table, TableContainer, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
 import { TransactionHistoryLineTable } from "./TransactionHistoryLineTable";
 
 export function TransactionHistory() {
@@ -7,11 +7,20 @@ export function TransactionHistory() {
     return (
         <Flex
             flexDir='column'
-            align='flex-start'
-            mt='25px'
+            alignSelf='center'
+            py='20px'
             w='max-content'
         >
-            <TableContainer>
+            <Heading
+                fontSize={20}
+                fontWeight='semibold'
+            >
+                Transactions history
+            </Heading>
+            <TableContainer
+                maxHeight={200}
+                overflowY='auto'
+            >
                 <Table
                     size='sm'
                 >
@@ -34,6 +43,34 @@ export function TransactionHistory() {
                             value={50}
                         />
                         <TransactionHistoryLineTable
+                            title="Shoes"
+                            category="Shoes"
+                            date="August 14, 2022"
+                            type="Expenses"
+                            value={250}
+                        />
+                         <TransactionHistoryLineTable
+                            title="Shoes"
+                            category="Shoes"
+                            date="August 14, 2022"
+                            type="Expenses"
+                            value={250}
+                        />
+                         <TransactionHistoryLineTable
+                            title="Shoes"
+                            category="Shoes"
+                            date="August 14, 2022"
+                            type="Expenses"
+                            value={250}
+                        />
+                         <TransactionHistoryLineTable
+                            title="Shoes"
+                            category="Shoes"
+                            date="August 14, 2022"
+                            type="Expenses"
+                            value={250}
+                        />
+                         <TransactionHistoryLineTable
                             title="Shoes"
                             category="Shoes"
                             date="August 14, 2022"
