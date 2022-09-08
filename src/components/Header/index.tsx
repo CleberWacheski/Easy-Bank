@@ -1,5 +1,5 @@
-import { Avatar, Flex, Heading, IconButton } from "@chakra-ui/react";
-import {IoMdNotificationsOutline} from 'react-icons/io'
+import { Avatar, Flex, Heading, HStack, IconButton } from "@chakra-ui/react";
+import { IoMdNotificationsOutline } from 'react-icons/io'
 import { DrawerNavigation } from "../DrawerNavigation";
 
 export function Header() {
@@ -13,20 +13,25 @@ export function Header() {
             position='fixed'
             bg='teal'
         >
-            <DrawerNavigation/>
-            <Heading 
-                fontSize={24}
-                color='white'
+            <HStack
+                spacing='20px'
             >
-                Dashboard
-            </Heading>
+                <DrawerNavigation />
+                <Heading
+                    fontSize={24}
+                    color='white'
+                >
+                    Dashboard
+                </Heading>
+            </HStack>
+
             <Flex
                 justify='center'
                 align='center'
                 gap='30px'
             >
                 <IconButton
-                    icon={<IoMdNotificationsOutline/>}
+                    icon={<IoMdNotificationsOutline />}
                     aria-label='Open Notifications'
                     colorScheme='teal'
                     borderRadius='full'

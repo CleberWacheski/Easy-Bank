@@ -2,19 +2,20 @@ import { HStack, Icon, Td, Text, Tr } from "@chakra-ui/react";
 import { HiCurrencyDollar } from "react-icons/hi";
 import { switchColor } from "../../utils/switchColor";
 import {numberFormater} from '../../utils/numberFomater'
+import { dateFormat } from "../../utils/dateFormat";
 
 interface LineTableProps {
     title: string;
     type: 'Income' | 'Expenses' | 'Savings'
-    category: string;
     date: string;
     value: number;
 }
 
-export function TransactionHistoryLineTable({ type, title, category, date, value }: LineTableProps) {
+export function TransactionHistoryLineTable({ type, title, date, value }: LineTableProps) {
 
     const color = switchColor(type)
     const Value = (type === 'Income') ? numberFormater.format(value) : `-${numberFormater.format(value)}`
+    const dateFormated = dateFormat.format(new Date(date))
 
     return (
         <Tr
@@ -28,10 +29,9 @@ export function TransactionHistoryLineTable({ type, title, category, date, value
                         color={color}
                         fontSize={24}
                     />
-                    <Text>{category}</Text>
                 </HStack>
             </Td>
-            <Td>{date}</Td>
+            <Td>{dateFormated}</Td>
             <Td
                 fontSize={16}
                 fontWeight='bold'

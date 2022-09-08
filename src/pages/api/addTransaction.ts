@@ -13,7 +13,7 @@ const addTransaction = async (req : NextApiRequest,res : NextApiResponse) => {
         const transaction = req.body.Transaction
 
         const data = {
-            email : user.email,
+            Email : user.email,
             ...transaction
         }
 

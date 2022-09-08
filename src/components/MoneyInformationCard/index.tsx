@@ -2,35 +2,66 @@ import { Flex } from "@chakra-ui/react";
 import { CardItem } from "./CardItem";
 import { HiCurrencyDollar } from 'react-icons/hi'
 import { RiMoneyDollarBoxFill } from 'react-icons/ri'
+import { useContext } from "react";
+import { FinancesContext } from "../../context/FinancesContext";
+
+
+
 
 export function MoneyInformationCard() {
+
+    const {data} = useContext(FinancesContext)
+
+    const financeInformation = data.reduce((acc, transaction) => {
+        if (transaction.Type === 'Expenses') {
+            acc.Expenses += transaction.Amount
+            acc.Balance -= transaction.Amount
+        }
+        else if (transaction.Type === 'Income') {
+            acc.Income += transaction.Amount
+            acc.Balance += transaction.Amount
+        }
+        else if (transaction.Type === 'Savings') {
+            acc.Savings += transaction.Amount
+        }
+
+        return acc
+    }, {
+        Balance: 0,
+        Income: 0,
+        Expenses: 0,
+        Savings: 0
+    })
+
+    console.log(financeInformation)
+
     return (
         <Flex
             gap='45px'
             alignSelf='center'
         >
-            <CardItem 
+            <CardItem
                 reference="Balance"
                 icon={HiCurrencyDollar}
-                value={3596}
+                value={financeInformation.Balance}
                 color='gray.600'
             />
-            <CardItem 
+            <CardItem
                 reference="Income"
                 icon={HiCurrencyDollar}
-                value={421}
+                value={financeInformation.Income}
                 color='green.500'
             />
-            <CardItem 
+            <CardItem
                 reference="Expenses"
                 icon={HiCurrencyDollar}
-                value={164}
+                value={financeInformation.Expenses}
                 color='red.500'
             />
-            <CardItem 
+            <CardItem
                 reference="Savings"
                 icon={RiMoneyDollarBoxFill}
-                value={257}
+                value={financeInformation.Savings}
                 color='blue.500'
             />
         </Flex>

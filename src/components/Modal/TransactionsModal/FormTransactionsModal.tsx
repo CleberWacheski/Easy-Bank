@@ -4,71 +4,79 @@ import {
     FormLabel,
     Input,
     VStack,
-    Select,
     Button,
     FormErrorMessage,
 } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { TransactionButtonModal } from './TransactionButtonModal'
-import {useMutation} from 'react-query'
-import { useForm,SubmitHandler } from 'react-hook-form'
+import { QueryClient, useMutation } from 'react-query'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { api } from '../../../services/api'
+import { v4 as uuidV4 } from 'uuid'
+import { queryClient } from '../../../pages/_app'
+import { FinancesContext } from '../../../context/FinancesContext'
 
 
 const schema = yup.object().shape({
     Name: yup.string().required('O Nome é Obrigatorio'),
     Amount: yup.number().required('O valor é Obrigatorio').
-    typeError('Número vazio ou inválido')
+        typeError('Número vazio ou inválido')
 })
 
 interface FormPros {
-    Name : string;
-    Amount : number;
+    Name: string;
+    Amount: number;
 }
 
 interface TransactionProps extends FormPros {
-    Type : string;
-    Date : Date;
-    category : string
+    id: string;
+    Type: string;
+    Date: Date;
 }
 
 export function FormTransactionsModal() {
 
-    const { register, handleSubmit,reset, formState: { errors,isSubmitting } } = useForm<FormPros>({
+    const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<FormPros>({
         resolver: yupResolver(schema)
     })
 
-    const mutation = useMutation(async (transaction : TransactionProps) => {
-            api.post('addTransaction', {
-                Transaction : {
-                    ...transaction
-                }
+    const { refetch } = useContext(FinancesContext)
+
+    const mutation = useMutation(async (transaction: TransactionProps) => {
+        api.post('addTransaction', {
+            Transaction: {
+                ...transaction
+            }
+        })
+    }, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('transactions').then(()=> {
+                refetch()
             })
+        }
     })
 
     const [type, setType] = useState('')
-    const [category,setCategory] = useState('')
 
-    const handleCreateNewTransaction : SubmitHandler<FormPros> = async (value,event) => {
+    const handleCreateNewTransaction: SubmitHandler<FormPros> = async (value, event) => {
         const data = {
-            Name : value.Name,
-            Amount : value.Amount,
-            category,
-            Type : type,
-            Date : new Date ()
+            id: uuidV4(),
+            Name: value.Name,
+            Amount: value.Amount,
+            Type: type,
+            Date: new Date()
         }
-        
+
         mutation.mutateAsync(data)
         reset()
-
-
+    
     }
 
     const FormErrors = {
-        Name : (errors.Name?.message) ? errors.Name.message : '',
-        Amount : (errors.Amount?.message) ? errors.Amount.message : ''
+        Name: (errors.Name?.message) ? errors.Name.message : '',
+        Amount: (errors.Amount?.message) ? errors.Amount.message : ''
     }
 
 
@@ -94,16 +102,6 @@ export function FormTransactionsModal() {
                     {...register('Amount')}
                 />
                 <FormErrorMessage>{FormErrors.Amount}</FormErrorMessage>
-                <FormLabel>Category</FormLabel>
-                <Select 
-                placeholder='Select Type'
-                onChange={e => setCategory(e.target.value)}
-                value={category}
-                >
-                    <option>Food</option>
-                    <option>Shopping</option>
-                    <option>Any</option>
-                </Select>
                 <HStack
                     py='15px'
                 >

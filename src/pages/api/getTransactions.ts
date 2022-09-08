@@ -14,14 +14,13 @@ const getTransactions = async (req: NextApiRequest, res: NextApiResponse) => {
             q.Map(
                 q.Paginate(
                     q.Match(
-                        q.Index('user_by_email_transactions'),
+                        q.Index('email_user_transactions'),
                         q.Casefold(user.email)
                     )
                 ),
                 q.Lambda(x => q.Get(x))
             )
         )
-
 
         return res.json(data)
 

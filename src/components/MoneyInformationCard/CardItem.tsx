@@ -1,5 +1,6 @@
 import { Flex, Icon, Text , IconProps, VStack } from "@chakra-ui/react";
 import { ElementType } from "react";
+import { numberFormater } from "../../utils/numberFomater";
 
 interface CardItemProps extends IconProps {
 
@@ -9,6 +10,9 @@ interface CardItemProps extends IconProps {
 }
 
 export function CardItem({icon,reference,value, ...rest} : CardItemProps) {
+
+    const valueFormated = numberFormater.format(value)
+
     return (
         <VStack
             align='flex-start'
@@ -22,10 +26,10 @@ export function CardItem({icon,reference,value, ...rest} : CardItemProps) {
             {...rest}
             />
             <Text
-            fontSize={30}
+            fontSize={24}
             fontWeight='extrabold'
             >
-                {value}
+                {valueFormated}
             </Text>
             <Text
             fontSize={18}

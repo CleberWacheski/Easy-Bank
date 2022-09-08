@@ -1,9 +1,15 @@
-import { Flex,Heading,Table, TableContainer, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
+import { Flex, Heading, Table, TableContainer, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
+import { useContext } from "react";
+import { FinancesContext } from "../../context/FinancesContext";
 import { TransactionHistoryLineTable } from "./TransactionHistoryLineTable";
+
+
 
 export function TransactionHistory() {
 
-
+    const {data} = useContext(FinancesContext)
+ 
+    
     return (
         <Flex
             flexDir='column'
@@ -35,48 +41,20 @@ export function TransactionHistory() {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        <TransactionHistoryLineTable
-                            title="Hambuguer"
-                            category="Food"
-                            date="September 03, 2022"
-                            type="Expenses"
-                            value={50}
-                        />
-                        <TransactionHistoryLineTable
-                            title="Shoes"
-                            category="Shoes"
-                            date="August 14, 2022"
-                            type="Expenses"
-                            value={250}
-                        />
-                         <TransactionHistoryLineTable
-                            title="Shoes"
-                            category="Shoes"
-                            date="August 14, 2022"
-                            type="Expenses"
-                            value={250}
-                        />
-                         <TransactionHistoryLineTable
-                            title="Shoes"
-                            category="Shoes"
-                            date="August 14, 2022"
-                            type="Expenses"
-                            value={250}
-                        />
-                         <TransactionHistoryLineTable
-                            title="Shoes"
-                            category="Shoes"
-                            date="August 14, 2022"
-                            type="Expenses"
-                            value={250}
-                        />
-                         <TransactionHistoryLineTable
-                            title="Shoes"
-                            category="Shoes"
-                            date="August 14, 2022"
-                            type="Expenses"
-                            value={250}
-                        />
+                         {
+                            data.map(({ Date, Name, Amount, Type,id }) => {
+                                return (
+                                    <TransactionHistoryLineTable
+                                        key={id}
+                                        title={Name}
+                                        date={Date}
+                                        type={Type}
+                                        value={Amount}
+                                    />
+                                )
+                            })
+                        }
+
                     </Tbody>
                 </Table>
             </TableContainer>
