@@ -10,10 +10,22 @@ interface Transactions {
         Type: 'Income' | 'Expenses' | 'Savings';
         Date: string;
 }
+interface Goals {
+    id : string;
+    Email: string,
+    Name: string;
+    Amount: number;
+    category : 'Computer' | 'Car' | 'Travel' | 'Game' | 'Leisure' | 'Professional' | 'Personal' | 'Other';
+}
+
+interface data {
+    Transactions : Transactions[];
+    Goals : Goals[]
+}
 
 
 interface FinancesContextProps {
-    data : Transactions[]
+    data : data
     isLoading : boolean;
     isFetching : boolean;
     refetch : () => void;
@@ -32,12 +44,21 @@ export const FinancesContext = createContext({} as FinancesContextProps)
 
 export function FinancesProvider({ children }: FinancesProviderProps) {
 
-    const { data, isLoading, refetch,isFetching} = useQuery('transactions', async () => {
-        const { data: { data } } = await api.get('getTransactions')
+    const { data, isLoading, refetch,isFetching} = useQuery('finances', async () => {
+        const { data : { transactions, goals} } = await api.get('getFinances')
 
-        return data.map((item) => {
+          const Transactions = transactions.data.map((item) => {
+              return item.data
+          })
+          const Goals = goals.data.map((item) => {
             return item.data
         })
+
+        return {
+            Transactions,
+            Goals
+        }
+        
     })
 
 

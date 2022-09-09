@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, useMediaQuery } from "@chakra-ui/react";
 import { CardItem } from "./CardItem";
 import { HiCurrencyDollar } from 'react-icons/hi'
 import { RiMoneyDollarBoxFill } from 'react-icons/ri'
@@ -11,8 +11,12 @@ import { FinancesContext } from "../../context/FinancesContext";
 export function MoneyInformationCard() {
 
     const {data} = useContext(FinancesContext)
+    const [isLess] = useMediaQuery('(max-width: 1100px)')
+    
 
-    const financeInformation = data.reduce((acc, transaction) => {
+    const {Transactions} = data
+
+    const financeInformation = Transactions.reduce((acc, transaction) => {
         if (transaction.Type === 'Expenses') {
             acc.Expenses += transaction.Amount
             acc.Balance -= transaction.Amount
@@ -33,12 +37,13 @@ export function MoneyInformationCard() {
         Savings: 0
     })
 
-    console.log(financeInformation)
 
     return (
         <Flex
-            gap='45px'
-            alignSelf='center'
+            gap='35px'
+            alignSelf={(isLess) ? 'center' : 'flex-start'}
+            justifyContent='center'
+           
         >
             <CardItem
                 reference="Balance"

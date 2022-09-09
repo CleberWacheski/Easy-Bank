@@ -1,4 +1,4 @@
-import { Flex, Icon, Text , IconProps, VStack } from "@chakra-ui/react";
+import {  Icon, Text , IconProps, VStack } from "@chakra-ui/react";
 import { ElementType } from "react";
 import { numberFormater } from "../../utils/numberFomater";
 

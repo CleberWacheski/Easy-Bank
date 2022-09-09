@@ -11,11 +11,21 @@ import { useForm ,SubmitHandler} from 'react-hook-form'
 
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import {v4 as uiidV4} from 'uuid'
+import { useMutation } from 'react-query'
+import { api } from '../../../services/api'
+import { queryClient } from '../../../pages/_app'
+import { FinancesContext } from '../../../context/FinancesContext'
 
 interface FormGoalsProps {
     Name : string;
     Amount : number
+}
+
+interface GoalsProps extends FormGoalsProps {
+    id : string;
+    category : string;
 }
 
 const schema = yup.object().shape({
@@ -24,20 +34,36 @@ const schema = yup.object().shape({
 })
 
 export function FormGoals() {
-    const { register, handleSubmit, reset, formState: { isSubmitting, errors } } = useForm<FormGoalsProps>({
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<FormGoalsProps>({
         resolver: yupResolver(schema)
     })
     const [category, setCategory] = useState('')
+    const {refetch} = useContext(FinancesContext)
+
+    const mutation = useMutation(async(goal : GoalsProps)=> {
+        api.post('addGoals', {
+            goal : {
+                ...goal
+            }
+        })
+    },{
+        onSuccess: ()=> {
+            queryClient.invalidateQueries('finances').then(()=> {
+                refetch()
+            })
+        }
+    })
 
     const handleNewCreateGoals : SubmitHandler<FormGoalsProps> = async (value,event) =>  {
-        const data = {
-            name : value.Name,
-            amount : value.Amount,
+
+        const data : GoalsProps = {
+            id : uiidV4(),
+            Name : value.Name,
+            Amount : value.Amount,
             category : category
         }
 
-        await new Promise(resolve=> setTimeout(resolve,1500))
-
+        mutation.mutateAsync(data)
         reset()
     }
 
@@ -78,13 +104,18 @@ export function FormGoals() {
                 >
                     <option>Computer</option>
                     <option>Car</option>
-                    <option>Any</option>
+                    <option>Travel</option>
+                    <option>Game</option>
+                    <option>Leisure</option>
+                    <option>Professional</option>
+                    <option>Personal</option>
+                    <option>Other</option>
                 </Select>
                 <Button
                     colorScheme='teal'
                     type='submit'
                     alignSelf='flex-end'
-                    isLoading={isSubmitting}
+                    isLoading={mutation.isLoading}
                 >
                     Add Goal
                 </Button>

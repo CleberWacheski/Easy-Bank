@@ -1,10 +1,35 @@
-import { Button, Flex, Heading, HStack, Input ,theme} from "@chakra-ui/react";
+import { Button, Flex, Heading, HStack, Icon, Input, theme, useDisclosure } from "@chakra-ui/react";
 import { GoalsCardItem } from "./GoalsCardItem";
-import { MdOutlineComputer } from "react-icons/md";
-import { RiComputerFill } from "react-icons/ri";
-import { AiOutlineCar } from "react-icons/ai";
+import { IconCategoryGoal } from "../../utils/IconCategoryGoal";
+import { useContext, useMemo, useState } from "react";
+import { FinancesContext } from "../../context/FinancesContext";
+import { progressCalculation } from "../../utils/progressCalculation";
+import { GoalsModal } from "../Modal/GoalsModal/Modal";
+import { FcSearch } from 'react-icons/fc'
+import { BiSearch } from "react-icons/bi";
 
 export function MyGoalsCard() {
+
+    const { isOpen, onClose, onOpen } = useDisclosure()
+
+    const { data } = useContext(FinancesContext)
+    const { Goals, Transactions } = data
+
+    const [seach, setSeach] = useState('')
+
+    const SumarySavings = Transactions.reduce((acc, item) => {
+        if (item.Type === 'Savings') {
+            acc += item.Amount
+        }
+        return acc
+    }, 0)
+
+    const goalsFiltred = useMemo(() => {
+
+        return Goals.filter(({ Name }) => Name.toLowerCase().startsWith(seach.toLowerCase()))
+            
+    }, [seach,Goals])
+
     return (
         <Flex
             flexDir='column'
@@ -15,13 +40,17 @@ export function MyGoalsCard() {
                 <Input
                     placeholder="Seach your goals"
                     maxW='230px'
-                />
-                <Button
-                    px='30px'
+                    onChange={(e) => setSeach(e.target.value)}
+                    value={seach}
                     colorScheme='teal'
+                    variant='filled'
+                />
+                <Icon
+                    fontSize={35}
+                    as={FcSearch}
                 >
                     Send
-                </Button>
+                </Icon>
             </HStack>
             <Flex
                 mt='15px'
@@ -39,9 +68,14 @@ export function MyGoalsCard() {
                 <Button
                     colorScheme='teal'
                     px='20px'
+                    onClick={onOpen}
                 >
                     Add
                 </Button>
+                <GoalsModal
+                    isOpen={isOpen}
+                    onClose={onClose}
+                />
             </Flex>
             <Flex
                 flexDir='column'
@@ -64,22 +98,20 @@ export function MyGoalsCard() {
                     },
                 }}
             >
-                <GoalsCardItem
-                    icon={MdOutlineComputer}
-                    name='New iMac'
-                    progressValue={50}
-                />
-                <GoalsCardItem
-                    icon={RiComputerFill}
-                    name='New Macbook 14'
-                    progressValue={60}
-                />
-                <GoalsCardItem
-                    icon={AiOutlineCar}
-                    name='Car'
-                    progressValue={5}
-                />
-                
+
+                {
+                    goalsFiltred.map((goal) => {
+
+                        return (
+                            <GoalsCardItem
+                                key={goal.id}
+                                icon={IconCategoryGoal(goal.category)}
+                                name={goal.Name}
+                                progressValue={(progressCalculation(SumarySavings, goal.Amount))}
+                            />
+                        )
+                    })
+                }
 
             </Flex>
 

@@ -4,13 +4,13 @@ import { unstable_getServerSession } from "next-auth"
 import { fauna } from "../../services/faunaClient"
 import { authOptions } from "./auth/[...nextauth]"
 
-const getTransactions = async (req: NextApiRequest, res: NextApiResponse) => {
+const getFinances = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const { user } = await unstable_getServerSession(req, res, authOptions)
 
     if (req.method === 'GET') {
 
-        const data = await fauna.query(
+        const transactions = await fauna.query(
             q.Map(
                 q.Paginate(
                     q.Match(
@@ -22,7 +22,24 @@ const getTransactions = async (req: NextApiRequest, res: NextApiResponse) => {
             )
         )
 
-        return res.json(data)
+        const goals = await fauna.query(
+            q.Map(
+                q.Paginate(
+                    q.Match(
+                        q.Index('user_email_goals'),
+                        q.Casefold(user.email)
+                    )
+                ),
+                q.Lambda(x => q.Get(x))
+            )
+        )
+
+        const data = {
+            transactions,
+            goals
+        }
+
+         return res.json(data)
 
 
     }
@@ -33,4 +50,4 @@ const getTransactions = async (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 
-export default getTransactions
+export default getFinances

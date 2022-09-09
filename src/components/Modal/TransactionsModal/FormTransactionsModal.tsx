@@ -38,7 +38,7 @@ interface TransactionProps extends FormPros {
 
 export function FormTransactionsModal() {
 
-    const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<FormPros>({
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<FormPros>({
         resolver: yupResolver(schema)
     })
 
@@ -52,7 +52,7 @@ export function FormTransactionsModal() {
         })
     }, {
         onSuccess: () => {
-            queryClient.invalidateQueries('transactions').then(()=> {
+            queryClient.invalidateQueries('finances').then(()=> {
                 refetch()
             })
         }
@@ -126,7 +126,7 @@ export function FormTransactionsModal() {
                     colorScheme='teal'
                     type='submit'
                     alignSelf='flex-end'
-                    isLoading={isSubmitting}
+                    isLoading={mutation.isLoading}
                 >
                     Add Transaction
                 </Button>
