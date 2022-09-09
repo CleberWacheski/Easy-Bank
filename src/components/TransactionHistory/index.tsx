@@ -28,6 +28,7 @@ export function TransactionHistory() {
             </Heading>
             <TableContainer
                 overflowY='auto'
+                cursor='pointer'
                 css={{
                     '&::-webkit-scrollbar': {
                         width: '6px',
@@ -52,6 +53,7 @@ export function TransactionHistory() {
                             <Th>Type</Th>
                             <Th>Date</Th>
                             <Th>Amount</Th>
+                            <Th>Delete</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
@@ -63,6 +65,7 @@ export function TransactionHistory() {
                                         title={Name}
                                         date={Date}
                                         type={Type}
+                                        id={id}
                                         value={Amount}
                                     />
                                 )
