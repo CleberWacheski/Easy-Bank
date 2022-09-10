@@ -21,7 +21,6 @@ import { IoLogOut } from 'react-icons/io5'
 import { GoalsComponent } from '../Modal/GoalsModal'
 import { TransactionComponent } from '../Modal/TransactionsModal'
 import { NavigationLink } from './NavigationLink'
-import {signOut} from 'next-auth/react'
 import { useRouter } from 'next/router'
 
 
@@ -32,7 +31,6 @@ export function DrawerNavigation() {
 
     function handleSignOut () {
         push('/')
-        signOut()
         
     }
 
@@ -53,6 +51,9 @@ export function DrawerNavigation() {
                 placement='left'
                 onClose={onClose}
                 finalFocusRef={btnRef}
+                isFullHeight
+                allowPinchZoom
+
             >
                 <DrawerOverlay />
                 <DrawerContent

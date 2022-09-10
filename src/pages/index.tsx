@@ -1,27 +1,133 @@
-import { Button, Flex } from "@chakra-ui/react"
-import { signIn ,useSession} from "next-auth/react"
-import { useRouter } from "next/router"
+import { Avatar, Button, Flex, HStack, Text, VStack } from "@chakra-ui/react"
+import { signIn, signOut } from "next-auth/react"
+import Image from "next/image"
+import {useRouter} from 'next/router'
+import { useContext, useState } from "react"
+import { UserContext } from "../context/UserContext"
 
 
 
-export default function Home () {
+export default function Home() {
 
-    function handleSignIn () {
+    const user = useContext(UserContext)
+    const {push} = useRouter()
+    const [isLoading,setIsLoading] = useState(false)
+
+    function handleSignIn() {
         signIn('google')
+
     }
 
-    const {data : session} = useSession()
-    const {push} = useRouter()
+    function handleSignOut() {
+        signOut()
+    }
 
-    if (session) {
+    function handleRedirect () {
+        setIsLoading(true)
         push('/dashboard')
     }
 
+
     return (
-        <Flex>
-            <Button
-                onClick={handleSignIn}
-            >SignIn</Button>
+        <Flex
+            justify='center'
+            align='flex-start'
+            h='100vh'
+            bg='teal.700'
+        >
+            {
+                (!!user.name) ?
+                    <Flex
+                        justify='center'
+                        align='center'
+                        mt={120}
+                    >
+                        <VStack
+                            spacing={5}
+                        >
+
+                            <Avatar
+                                src={user.photo}
+                                size='xl'
+                                objectFit='cover'
+
+                            />
+                            <Text
+                                fontWeight='extrabold'
+                                fontSize={22}
+                                color='white'
+                            >
+                                {user.email}
+                            </Text>
+
+
+                            <Button
+                                colorScheme='teal'
+                                size='lg'
+                                onClick={handleRedirect}
+                                isLoading={isLoading}
+                            >
+                                <HStack spacing='4px' >
+                                    <Text
+                                        color='white'
+                                        fontSize={22}
+                                        fontWeight='semibold'
+                                        letterSpacing='tighter'
+                                    >
+                                        easy bank
+                                    </Text>
+                                </HStack>
+                            </Button>
+
+                            <Button
+                                colorScheme='purple'
+                                size='md'
+                                onClick={handleSignOut}
+                            >
+                                <HStack>
+                                    <Text
+                                        fontWeight='medium'
+                                    >
+                                        Sign Out
+                                    </Text>
+                                </HStack>
+                            </Button>
+                        </VStack>
+                    </Flex>
+                    :
+                    <VStack
+                        spacing='30'
+                        mt={200}
+                    >
+                        <Avatar
+                            size='lg'
+                        />
+                        <Button
+                            colorScheme='teal'
+                            size='md'
+                            onClick={handleSignIn}
+                        >
+                            <HStack>
+                                <Image
+                                    src='/Google-Logo.svg'
+                                    alt="Google Logo"
+                                    height={30}
+                                    width={30}
+                                />
+                                <Text
+                                    fontWeight='medium'
+                                    color='white'
+                                >
+                                    Login with Google
+                                </Text>
+                            </HStack>
+                        </Button>
+                    </VStack>
+
+
+            }
+
         </Flex>
     )
 }
+

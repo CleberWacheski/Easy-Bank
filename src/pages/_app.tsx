@@ -4,6 +4,7 @@ import { theme } from '../../styles/global'
 import { SessionProvider } from 'next-auth/react'
 import { QueryClientProvider, QueryClient } from 'react-query'
 import { FinancesProvider } from '../context/FinancesContext'
+import { UserContextProvider } from '../context/UserContext'
 
 export const queryClient = new QueryClient()
 
@@ -15,7 +16,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <ChakraProvider theme={theme}>
           <FinancesProvider>
-            <Component {...pageProps} />
+            <UserContextProvider>
+              <Component {...pageProps} />
+            </UserContextProvider>
           </FinancesProvider>
         </ChakraProvider>
       </QueryClientProvider>

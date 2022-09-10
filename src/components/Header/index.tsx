@@ -1,12 +1,17 @@
-import { Avatar, Flex, Heading, HStack, IconButton, Spinner } from "@chakra-ui/react";
+import { Avatar, Flex, Heading, HStack, IconButton, Spinner, useMediaQuery } from "@chakra-ui/react";
 import { useContext } from "react";
 import { IoMdNotificationsOutline } from 'react-icons/io'
 import { FinancesContext } from "../../context/FinancesContext";
+import { UserContext } from "../../context/UserContext";
 import { DrawerNavigation } from "../DrawerNavigation";
 
 export function Header() {
 
     const {isFetching,isLoading} = useContext(FinancesContext)
+
+    const [isLess] = useMediaQuery('(max-width: 1100px)')
+
+    const {name,photo} = useContext(UserContext)
 
     return (
         <Flex
@@ -23,6 +28,7 @@ export function Header() {
                 spacing='20px'
             >
                 <DrawerNavigation />
+                
                 <Heading
                     fontSize={24}
                     color='white'
@@ -53,8 +59,8 @@ export function Header() {
                     fontSize={28}
                 />
                 <Avatar
-                    name='Cleber Wacheski'
-                    src='https://avatars.githubusercontent.com/u/94264158?v=4'
+                    name={name}
+                    src={photo}
                     size='md'
                     cursor='pointer'
                 />

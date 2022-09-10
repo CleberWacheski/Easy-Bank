@@ -21,7 +21,7 @@ export default function Dashboard() {
             <Header />
             {(isLoading) ?
                 <Flex
-                    h='100vh'
+                    flex='1'
                     bg='teal'
                     justifyContent='center'
                     align='center'
@@ -78,7 +78,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
         return {
             props : {},
             redirect: {
-                destination: '/'
+                destination: '/',
+                permanent : true
             }
         }
     }
