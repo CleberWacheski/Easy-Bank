@@ -1,20 +1,23 @@
 import { Box, Flex, SimpleGrid, Spinner, useMediaQuery } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import { unstable_getServerSession } from "next-auth";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ChartComponent } from "../components/ChartComponent";
 import { Header } from "../components/Header";
 import { MoneyInformationCard } from "../components/MoneyInformationCard";
 import { MyGoalsCard } from "../components/MyGoalsCard";
 import { TransactionHistory } from "../components/TransactionHistory";
 import { FinancesContext } from "../context/FinancesContext";
+import { getDataFinances, useFinances } from "../hooks/useFinances";
 import { authOptions } from "./api/auth/[...nextauth]";
 
 
 export default function Dashboard() {
 
+    useFinances()
     const { isLoading } = useContext(FinancesContext)
     const [isLess] = useMediaQuery('(max-width: 1100px)')
+
 
     return (
         <Box>
@@ -62,25 +65,4 @@ export default function Dashboard() {
             }
         </Box>
     )
-}
-
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-
-    const session = unstable_getServerSession(req, res, authOptions)
-
-    if (session) {
-        return {
-            props: {}
-        }
-    }
-    else {
-        return {
-            props : {},
-            redirect: {
-                destination: '/',
-                permanent : true
-            }
-        }
-    }
 }

@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { useContext, useState } from 'react'
 import { TransactionButtonModal } from './TransactionButtonModal'
-import { QueryClient, useMutation } from 'react-query'
+import {  useMutation } from 'react-query'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'

@@ -1,6 +1,5 @@
 import { createContext, ReactNode } from "react";
-import { useQuery } from "react-query";
-import { api } from "../services/api";
+import { useFinances } from "../hooks/useFinances";
 
 interface Transactions {
     id: string;
@@ -18,14 +17,14 @@ interface Goals {
     category: 'Computer' | 'Car' | 'Travel' | 'Game' | 'Leisure' | 'Professional' | 'Personal' | 'Other';
 }
 
-interface data {
+interface Data {
     Transactions: Transactions[];
     Goals: Goals[]
 }
 
 
 interface FinancesContextProps {
-    data: data
+    data: Data;
     isLoading: boolean;
     isFetching: boolean;
     refetch: () => void;
@@ -36,31 +35,14 @@ interface FinancesProviderProps {
     children: ReactNode
 }
 
-
-
 export const FinancesContext = createContext({} as FinancesContextProps)
 
 
 
 export function FinancesProvider({ children }: FinancesProviderProps) {
 
-    const { data, isLoading, refetch, isFetching } = useQuery('finances', async () => {
-        const { data: { transactions, goals } } = await api.get('getFinances')
 
-            const Transactions = transactions.data.map((item) => {
-                return item.data
-            })
-            const Goals = goals.data.map((item) => {
-                return item.data
-            })
-
-            return {
-                Transactions,
-                Goals
-            } 
-    },{
-        staleTime : 1000 * 10,
-    })
+    const { data, isLoading, refetch, isFetching } = useFinances()
 
     return (
         <FinancesContext.Provider value={{ data, isLoading, refetch, isFetching }}>
