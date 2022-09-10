@@ -129,7 +129,7 @@ export function ChartComponent() {
     return (
         <Chart
             type="bar"
-            height={180}
+            height={170}
             series={series}
             options={options}
         />

@@ -21,11 +21,20 @@ import { IoLogOut } from 'react-icons/io5'
 import { GoalsComponent } from '../Modal/GoalsModal'
 import { TransactionComponent } from '../Modal/TransactionsModal'
 import { NavigationLink } from './NavigationLink'
+import {signOut} from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 
 export function DrawerNavigation() {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const {push} = useRouter()
     const btnRef = useRef()
+
+    function handleSignOut () {
+        push('/')
+        signOut()
+        
+    }
 
     return (
         <>
@@ -91,6 +100,7 @@ export function DrawerNavigation() {
                             icon={IoLogOut}
                             alignSelf='flex-start'
                             mb='25px'
+                            onClick={handleSignOut}
                         />
                     </DrawerBody>
 

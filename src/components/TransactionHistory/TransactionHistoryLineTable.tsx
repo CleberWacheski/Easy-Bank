@@ -28,7 +28,7 @@ export function TransactionHistoryLineTable({ type, title, date, value, id }: Li
         api.post('removeDocument', {
             deleteRef: {
                 id,
-                colletion: 'transactions'
+                colletion: 'transaction'
             }
         })
     }, {
@@ -52,13 +52,13 @@ export function TransactionHistoryLineTable({ type, title, date, value, id }: Li
                     <Icon
                         as={HiCurrencyDollar}
                         color={color}
-                        fontSize={24}
+                        fontSize={23}
                     />
                 </HStack>
             </Td>
             <Td>{dateFormated}</Td>
             <Td
-                fontSize={16}
+                fontSize={15}
                 fontWeight='bold'
                 isNumeric
             >

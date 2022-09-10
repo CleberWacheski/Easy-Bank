@@ -20,7 +20,7 @@ export function NavigationLink({name,icon,onClose, ...rest} : NavigationLinkProp
             flexDirection='column'
             colorScheme={(active) ? 'facebook' : 'none'}
             color={(active) ? 'blue.800' : 'blue'}
-            onClick={(!!onClose) && onClose}
+            onClick={((!!onClose) ? onClose : ()=> {})}
             pl='10px'
             {...rest}
         >

@@ -7,15 +7,16 @@ const removeDocument = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
 
         const reference = req.body.deleteRef
+        const index = `id_${reference.colletion}`
 
-        await fauna.query(
-            q.Map(
-                q.Paginate(q.Match(q.Index("id_transaction"), reference.id)),
-                q.Lambda("X", q.Delete(q.Var("X")))
-            )
-        )
+         await fauna.query(
+             q.Map(
+                 q.Paginate(q.Match(q.Index(index), reference.id)),
+                 q.Lambda("X", q.Delete(q.Var("X")))
+             )
+         )
+
             
-        
         res.status(200)
 
     }

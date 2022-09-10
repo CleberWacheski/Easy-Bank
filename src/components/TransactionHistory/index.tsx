@@ -17,17 +17,18 @@ export function TransactionHistory() {
             flexDir='column'
             alignSelf='center'
             py='10px'
-            w='max-content'
-            maxHeight={200}
         >
             <Heading
-                fontSize={20}
+                fontSize={18}
                 fontWeight='semibold'
             >
                 Transactions history
             </Heading>
             <TableContainer
                 overflowY='auto'
+                overflowX='hidden'
+                w='max'
+                height={140}
                 cursor='pointer'
                 css={{
                     '&::-webkit-scrollbar': {
@@ -47,7 +48,7 @@ export function TransactionHistory() {
                 >
                     <Thead>
                         <Tr
-                            fontSize={14}
+                            fontSize={16}
                         >
                             <Th>Name</Th>
                             <Th>Type</Th>

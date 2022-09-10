@@ -46,7 +46,7 @@ export function MyGoalsCard() {
                     variant='filled'
                 />
                 <Icon
-                    fontSize={35}
+                    fontSize={34}
                     as={FcSearch}
                 >
                     Send
@@ -60,7 +60,7 @@ export function MyGoalsCard() {
                 align='center'
             >
                 <Heading
-                    fontSize={20}
+                    fontSize={19}
                     fontWeight='semibold'
                 >
                     My Goals
@@ -105,6 +105,7 @@ export function MyGoalsCard() {
                         return (
                             <GoalsCardItem
                                 key={goal.id}
+                                id={goal.id}
                                 icon={IconCategoryGoal(goal.category)}
                                 name={goal.Name}
                                 progressValue={(progressCalculation(SumarySavings, goal.Amount))}
