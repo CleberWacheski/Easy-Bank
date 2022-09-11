@@ -39,22 +39,20 @@ export function NotificationsPopover() {
         }
         else {
 
-            Goals.map((goal) => {
+            Goals.map((goal) =>
+                (progressCalculation(SumarySavings, goal?.Amount) === 100) &&
 
-                return (
-                    (progressCalculation(SumarySavings, goal?.Amount) === 100) &&
-
-                    (
-                        <Text
-                            key={goal.id}
-                            py='8px'
-                            borderBottom='1px solid gray'
-                        >
-                            Congratulations 👏👏, you can purchase your goal <strong>{goal.Name}</strong> for {goal.Amount}R$
-                        </Text>
-                    )
+                (
+                    <Text
+                        key={goal.id}
+                        py='8px'
+                        borderBottom='1px solid gray'
+                    >
+                        Congratulations 👏👏, you can purchase your goal <strong>{goal.Name}</strong> for {goal.Amount}R$
+                    </Text>
                 )
-            })
+
+            )
         }
     }
 
