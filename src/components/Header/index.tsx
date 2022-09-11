@@ -13,7 +13,6 @@ import { useContext, useRef } from "react";
 import { FinancesContext } from "../../context/FinancesContext";
 import { DrawerNavigation } from "../DrawerNavigation";
 import { NavigationMobile } from "../NavigationMobile";
-import { NotificationsPopover } from "./NotificationsPopover";
 import { UserPopover } from "./UserPopover";
 
 export function Header() {
@@ -86,7 +85,7 @@ export function Header() {
                 align='center'
                 gap='30px'
             >
-                <NotificationsPopover/>
+              
                 <UserPopover/>
             
             </Flex>
