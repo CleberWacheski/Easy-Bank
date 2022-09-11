@@ -10,13 +10,10 @@ import {
 } from "@chakra-ui/react";
 
 import { useContext, useRef } from "react";
-import { IoMdNotificationsOutline } from 'react-icons/io'
 import { FinancesContext } from "../../context/FinancesContext";
-import { UserContext } from "../../context/UserContext";
 import { DrawerNavigation } from "../DrawerNavigation";
 import { NavigationMobile } from "../NavigationMobile";
 import { NotificationsPopover } from "./NotificationsPopover";
-import { UserPopover } from "./UserPopover";
 
 export function Header() {
 
@@ -89,8 +86,7 @@ export function Header() {
                 gap='30px'
             >
                 <NotificationsPopover/>
-                <UserPopover/>
-                
+            
             </Flex>
         </Flex>
     )

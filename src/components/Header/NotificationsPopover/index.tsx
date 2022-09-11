@@ -28,18 +28,18 @@ export function NotificationsPopover() {
 
 
 
-    // const MessagePopover = () => {
+    const MessagePopover = () => {
 
-    //     return (
-    //         (Goals.every((goal) => goal?.Amount > SumarySavings) || !Goals[0]?.Amount) &&
+        return (
+            (Goals.every((goal) => goal?.Amount > SumarySavings) || !Goals[0]?.Amount) &&
 
-    //         (
-    //             <Text>
-    //                Sorry 😔, Nothing here...
-    //             </Text>
-    //         )
-    //     )
-    // }
+            (
+                <Text>
+                    Sorry 😔, Nothing here...
+                </Text>
+            )
+        )
+    }
 
     return (
         <Popover>
@@ -76,7 +76,7 @@ export function NotificationsPopover() {
                             )
                         )
                     })}
-                    {/* <MessagePopover/> */}
+                    <MessagePopover />
                 </PopoverBody>
             </PopoverContent>
         </Popover>
