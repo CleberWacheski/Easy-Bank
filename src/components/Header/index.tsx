@@ -22,7 +22,7 @@ export function Header() {
 
     const [isLess] = useMediaQuery('(max-width: 1100px)')
 
-    
+
 
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = useRef()
@@ -86,9 +86,9 @@ export function Header() {
                 align='center'
                 gap='30px'
             >
-              
-                <UserPopover/>
-                <NotificationsPopover/>
+                <NotificationsPopover />
+                <UserPopover />
+
             </Flex>
         </Flex>
     )
