@@ -19,6 +19,7 @@ export function NotificationsPopover() {
 
     const { data: { Goals, Transactions } } = useContext(FinancesContext)
 
+
     const SumarySavings = Transactions.reduce((acc, item) => {
         if (item.Type === 'Savings') {
             acc += item.Amount
@@ -26,35 +27,8 @@ export function NotificationsPopover() {
         return acc
     }, 0)
 
+    const goalsFiltreed = Goals.filter((goal) => progressCalculation(SumarySavings, goal.Amount) >= 100)
 
-
-    const MessagePopover = () => {
-
-        if (Goals.every((goal) => goal?.Amount > SumarySavings) || !Goals[0]?.Amount) {
-            return (
-                <Text>
-                    Sorry 😔, Nothing here...
-                </Text>
-            )
-        }
-        else {
-
-            Goals.map((goal) =>
-                (progressCalculation(SumarySavings, goal?.Amount) === 100) &&
-
-                (
-                    <Text
-                        key={goal.id}
-                        py='8px'
-                        borderBottom='1px solid gray'
-                    >
-                        Congratulations 👏👏, you can purchase your goal <strong>{goal.Name}</strong> for {goal.Amount}R$
-                    </Text>
-                )
-
-            )
-        }
-    }
 
     return (
         <Popover>
@@ -76,7 +50,26 @@ export function NotificationsPopover() {
                 <PopoverBody
                     mt='10px'
                 >
-                    <MessagePopover />
+                    {
+                        (Goals.every((goal) => goal?.Amount > SumarySavings) || Goals.length < 0)
+                            ?
+                            <Text>
+                                Sorry 😔, Nothing here...
+                            </Text>
+                            :
+                            
+                            goalsFiltreed.map((goal) =>
+
+                                <Text
+                                    key={goal.id}
+                                    py='8px'
+                                    borderBottom='1px solid gray'
+                                >
+                                    Congratulations 👏👏, you can purchase your goal <strong>{goal.Name}</strong> for {goal.Amount}R$
+                                </Text>
+                            )
+                    }
+
                 </PopoverBody>
             </PopoverContent>
         </Popover>
