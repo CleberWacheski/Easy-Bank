@@ -10,7 +10,6 @@ import {
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import { IoMdNotificationsOutline } from "react-icons/io";
-
 import { FinancesContext } from "../../../context/FinancesContext";
 import { progressCalculation } from "../../../utils/progressCalculation";
 
@@ -57,7 +56,7 @@ export function NotificationsPopover() {
                                 Sorry 😔, Nothing here...
                             </Text>
                             :
-                            
+
                             goalsFiltreed.map((goal) =>
 
                                 <Text

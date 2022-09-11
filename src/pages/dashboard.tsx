@@ -15,7 +15,6 @@ export default function Dashboard() {
 
     return (
         <Box>
-            <Header />
             {(isLoading) ?
                 <Flex
                     flex='1'
@@ -32,30 +31,32 @@ export default function Dashboard() {
                     />
                 </Flex>
                 :
-                <SimpleGrid
-                    gridTemplateColumns={(!isLess) ? '55% 45%' : ''}
-                    columns={isLess ? 0 : 2}
-                    row={isLess ? 2 : 0}
-                    px='20px' 
-                    pb={(isLess) ? '4%' : 0}
-                    pt='100px'
-                >
-                    <Flex
-                        flexDir='column'
-                        w='100%'
+                <>
+                    <Header />
+                    <SimpleGrid
+                        gridTemplateColumns={(!isLess) ? '55% 45%' : ''}
+                        columns={isLess ? 0 : 2}
+                        row={isLess ? 2 : 0}
+                        px='20px'
+                        pb={(isLess) ? '4%' : 0}
+                        pt='100px'
                     >
-                        <MoneyInformationCard />
-                        <ChartComponent />
-                        <TransactionHistory />
+                        <Flex
+                            flexDir='column'
+                            w='100%'
+                        >
+                            <MoneyInformationCard />
+                            <ChartComponent />
+                            <TransactionHistory />
 
-                    </Flex>
-                    <Box
-                        p='35px'
-                    >
-                        <MyGoalsCard />
-                    </Box>
-                </SimpleGrid>
-
+                        </Flex>
+                        <Box
+                            p='35px'
+                        >
+                            <MyGoalsCard />
+                        </Box>
+                    </SimpleGrid>
+                </>
             }
         </Box>
     )
