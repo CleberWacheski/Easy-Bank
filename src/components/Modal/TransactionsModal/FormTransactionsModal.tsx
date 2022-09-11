@@ -92,7 +92,6 @@ export function FormTransactionsModal() {
 
     return (
         <FormControl
-            p='18px'
             as='form'
             onSubmit={handleSubmit(handleCreateNewTransaction)}
             isInvalid={!!FormErrors.Name || !!FormErrors.Amount}
@@ -133,17 +132,20 @@ export function FormTransactionsModal() {
                     pb='15px'
                 >
                     <TransactionButtonModal
+                        size='sm'
                         Type='Income'
                         active={type}
                         onClick={() => setType('Income')}
 
                     />
                     <TransactionButtonModal
+                        size='sm'
                         Type='Expenses'
                         active={type}
                         onClick={() => setType('Expenses')}
                     />
                     <TransactionButtonModal
+                        size='sm'
                         Type='Savings'
                         active={type}
                         onClick={() => setType('Savings')}
