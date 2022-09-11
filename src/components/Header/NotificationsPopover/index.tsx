@@ -30,15 +30,32 @@ export function NotificationsPopover() {
 
     const MessagePopover = () => {
 
-        return (
-            (Goals.every((goal) => goal?.Amount > SumarySavings) || !Goals[0]?.Amount) &&
-
-            (
+        if (Goals.every((goal) => goal?.Amount > SumarySavings) || !Goals[0]?.Amount) {
+            return (
                 <Text>
                     Sorry 😔, Nothing here...
                 </Text>
             )
-        )
+        }
+        else {
+
+            Goals.map((goal) => {
+
+                return (
+                    (progressCalculation(SumarySavings, goal?.Amount) === 100) &&
+
+                    (
+                        <Text
+                            key={goal.id}
+                            py='8px'
+                            borderBottom='1px solid gray'
+                        >
+                            Congratulations 👏👏, you can purchase your goal <strong>{goal.Name}</strong> for {goal.Amount}R$
+                        </Text>
+                    )
+                )
+            })
+        }
     }
 
     return (
@@ -61,24 +78,12 @@ export function NotificationsPopover() {
                 <PopoverBody
                     mt='10px'
                 >
-                    {Goals.map((goal) => {
-
-                        return (
-                            (progressCalculation(SumarySavings, goal?.Amount) === 100) &&
-                            (
-                                <Text
-                                    key={goal.id}
-                                    py='8px'
-                                    borderBottom='1px solid gray'
-                                >
-                                    Congratulations 👏👏, you can purchase your goal <strong>{goal.Name}</strong> for {goal.Amount}R$
-                                </Text>
-                            )
-                        )
-                    })}
                     <MessagePopover />
                 </PopoverBody>
             </PopoverContent>
         </Popover>
     )
 }
+
+
+
