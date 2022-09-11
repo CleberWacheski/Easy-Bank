@@ -8,9 +8,9 @@ const getFinances = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (req.method === 'GET') {
 
-        try {
-            const { user } = await unstable_getServerSession(req, res, authOptions)
+        const { user } = await unstable_getServerSession(req, res, authOptions)
 
+        if (!!user) {
             const transactions = await fauna.query(
                 q.Map(
                     q.Paginate(
@@ -43,10 +43,11 @@ const getFinances = async (req: NextApiRequest, res: NextApiResponse) => {
             return res.json(data)
         }
 
-        catch (e) {
-            res.status(401).end('Unauthorized')
-
+        else {
+            
+            res.status(500).end("User not found")
         }
+
 
     }
     else {
