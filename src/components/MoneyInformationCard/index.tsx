@@ -40,10 +40,12 @@ export function MoneyInformationCard() {
 
     return (
         <Flex
-            gap='35px'
-            alignSelf={(isLess) ? 'center' : 'flex-start'}
-            justifyContent='center'
-           
+            gap='20px'
+            alignSelf='center'
+            justifyContent='center'   
+            flexWrap='wrap'
+            pr='20px'
+            pl='10px'
         >
             <CardItem
                 reference="Balance"

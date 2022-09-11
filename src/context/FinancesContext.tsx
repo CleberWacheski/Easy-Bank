@@ -41,7 +41,7 @@ export const FinancesContext = createContext({} as FinancesContextProps)
 
 export function FinancesProvider({ children }: FinancesProviderProps) {
 
-
+    
     const { data, isLoading, refetch, isFetching } = useFinances()
 
     return (

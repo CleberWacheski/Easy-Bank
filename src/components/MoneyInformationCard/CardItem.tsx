@@ -17,7 +17,7 @@ export function CardItem({icon,reference,value, ...rest} : CardItemProps) {
         <VStack
             align='flex-start'
             mt='10px'
-            spacing='7px'
+            spacing='4px'
         >
             <Icon 
             as={icon} 

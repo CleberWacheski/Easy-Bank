@@ -11,11 +11,9 @@ import {
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import { HiHome } from 'react-icons/hi'
-import { IoLogOut } from 'react-icons/io5'
 import { GoalsComponent } from '../Modal/GoalsModal'
 import { TransactionComponent } from '../Modal/TransactionsModal'
 import { NavigationLink } from './NavigationLink'
-import { useRouter } from 'next/router'
 import { MutableRefObject } from 'react'
 
 interface DrawerProps {
@@ -27,11 +25,7 @@ interface DrawerProps {
 
 export function DrawerNavigation({btnRef,isOpen,onClose}: DrawerProps) {
 
-    const { push } = useRouter()
-
-    function handleSignOut () {
-        push('/')
-    }
+   
 
     return (
             <Drawer
@@ -84,13 +78,7 @@ export function DrawerNavigation({btnRef,isOpen,onClose}: DrawerProps) {
                             <GoalsComponent />
 
                         </VStack>
-                        <NavigationLink
-                            name='Logout'
-                            icon={IoLogOut}
-                            alignSelf='flex-start'
-                            mb='25px'
-                            onClick={handleSignOut}
-                        />
+
                     </DrawerBody>
 
                 </DrawerContent>

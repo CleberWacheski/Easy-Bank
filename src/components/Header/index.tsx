@@ -1,11 +1,22 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { Avatar, Flex, Heading, HStack, IconButton, Spinner, useDisclosure, useMediaQuery } from "@chakra-ui/react";
+import {
+    Flex,
+    Heading,
+    HStack,
+    IconButton,
+    Spinner,
+    useDisclosure,
+    useMediaQuery,
+} from "@chakra-ui/react";
+
 import { useContext, useRef } from "react";
 import { IoMdNotificationsOutline } from 'react-icons/io'
 import { FinancesContext } from "../../context/FinancesContext";
 import { UserContext } from "../../context/UserContext";
 import { DrawerNavigation } from "../DrawerNavigation";
 import { NavigationMobile } from "../NavigationMobile";
+import { NotificationsPopover } from "./NotificationsPopover";
+import { UserPopover } from "./UserPopover";
 
 export function Header() {
 
@@ -13,10 +24,11 @@ export function Header() {
 
     const [isLess] = useMediaQuery('(max-width: 1100px)')
 
-    const { name, photo } = useContext(UserContext)
+    
 
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = useRef()
+
 
     return (
         <Flex
@@ -52,7 +64,7 @@ export function Header() {
                             onClose={onClose}
                         />
                     </>
-                    
+
                 }
                 <Heading
                     fontSize={24}
@@ -76,19 +88,9 @@ export function Header() {
                 align='center'
                 gap='30px'
             >
-                <IconButton
-                    icon={<IoMdNotificationsOutline />}
-                    aria-label='Open Notifications'
-                    colorScheme='teal'
-                    borderRadius='full'
-                    fontSize={28}
-                />
-                <Avatar
-                    name={name}
-                    src={photo}
-                    size='md'
-                    cursor='pointer'
-                />
+                <NotificationsPopover/>
+                <UserPopover/>
+                
             </Flex>
         </Flex>
     )

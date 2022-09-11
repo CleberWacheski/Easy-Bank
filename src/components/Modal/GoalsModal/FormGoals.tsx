@@ -7,69 +7,73 @@ import {
     Button,
     FormErrorMessage,
 } from '@chakra-ui/react'
-import { useForm ,SubmitHandler} from 'react-hook-form'
+import { useForm, SubmitHandler } from 'react-hook-form'
 
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useContext, useState } from 'react'
-import {v4 as uiidV4} from 'uuid'
+import { v4 as uiidV4 } from 'uuid'
 import { useMutation } from 'react-query'
 import { api } from '../../../services/api'
 import { queryClient } from '../../../pages/_app'
 import { FinancesContext } from '../../../context/FinancesContext'
 
 interface FormGoalsProps {
-    Name : string;
-    Amount : number
+    Name: string;
+    Amount: number;
+    category: string;
 }
 
 interface GoalsProps extends FormGoalsProps {
-    id : string;
-    category : string;
+    id: string;
 }
 
 const schema = yup.object().shape({
     Name: yup.string().required("O Nome é Obrigatorio"),
-    Amount: yup.number().required("O Valor é Obrigatorio").typeError('Número vazio ou inválido')
+    Amount: yup.number().required("O Valor é Obrigatorio").typeError('Número vazio ou inválido'),
+    category: yup.string().required("A Categoria é Obrigatoria")
 })
 
 export function FormGoals() {
     const { register, handleSubmit, reset, formState: { errors } } = useForm<FormGoalsProps>({
         resolver: yupResolver(schema)
     })
-    const [category, setCategory] = useState('')
-    const {refetch} = useContext(FinancesContext)
 
-    const mutation = useMutation(async(goal : GoalsProps)=> {
+    const { refetch } = useContext(FinancesContext)
+
+    const mutation = useMutation(async (goal: GoalsProps) => {
         api.post('addGoals', {
-            goal : {
+            goal: {
                 ...goal
             }
         })
-    },{
-        onSuccess: ()=> {
-            queryClient.invalidateQueries('finances').then(()=> {
+    }, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('finances').then(() => {
                 refetch()
             })
         }
     })
 
-    const handleNewCreateGoals : SubmitHandler<FormGoalsProps> = async (value,event) =>  {
+    const handleNewCreateGoals: SubmitHandler<FormGoalsProps> = async (value, event) => {
 
-        const data : GoalsProps = {
-            id : uiidV4(),
-            Name : value.Name,
-            Amount : value.Amount,
-            category : category
+        const data: GoalsProps = {
+            id: uiidV4(),
+            Name: value.Name,
+            Amount: value.Amount,
+            category: value.category
         }
 
-        mutation.mutateAsync(data)
+        await mutation.mutateAsync(data)
         reset()
+
+        console.log(value)
     }
 
     const FormErrors = {
-        Name : (errors.Name?.message) ? errors.Name.message : '',
-        Amount : (errors.Amount?.message) ? errors.Amount.message : ''
+        Name: (errors.Name?.message) ? errors.Name.message : '',
+        Amount: (errors.Amount?.message) ? errors.Amount.message : '',
+        Category: (errors.category?.message) ? errors.category.message : ''
     }
 
 
@@ -78,29 +82,46 @@ export function FormGoals() {
             p='18px'
             as='form'
             onSubmit={handleSubmit(handleNewCreateGoals)}
-            isInvalid={!!FormErrors.Name || !!FormErrors.Amount}
+            isInvalid={!!FormErrors.Name || !!FormErrors.Amount || !!FormErrors.Category}
         >
             <VStack
                 align='flex-start'
                 spacing='10px'
             >
-                <FormLabel>Name</FormLabel>
+                <FormLabel
+                    fontWeight='extrabold'
+                >
+                    Name
+                </FormLabel>
                 <Input
+                    placeholder='Ex: Travel to canada'
+                    type='text'
+                    variant='filled'
                     {...register('Name')}
                 />
                 <FormErrorMessage>{FormErrors.Name}</FormErrorMessage>
-                <FormLabel>Amount</FormLabel>
+                <FormLabel
+                    fontWeight='extrabold'
+                >
+                    Amount
+                </FormLabel>
                 <Input
+                    placeholder='Ex : 100000'
                     type='number'
+                    variant='filled'
                     {...register('Amount')}
                 />
                 <FormErrorMessage>{FormErrors.Amount}</FormErrorMessage>
-                <FormLabel>Category</FormLabel>
+                <FormLabel
+                    fontWeight='extrabold'
+                >
+                    Category
+                </FormLabel>
                 <Select
+                    variant='filled'
                     placeholder='Select Category'
-                    
-                    onChange={e => setCategory(e.target.value)}
-                    value={category}
+                    {...register('category')}
+
                 >
                     <option>Computer</option>
                     <option>Car</option>
@@ -111,6 +132,7 @@ export function FormGoals() {
                     <option>Personal</option>
                     <option>Other</option>
                 </Select>
+                <FormErrorMessage>{FormErrors.Category}</FormErrorMessage>
                 <Button
                     colorScheme='teal'
                     type='submit'

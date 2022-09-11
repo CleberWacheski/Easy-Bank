@@ -2,7 +2,6 @@ import { Avatar, Button, Flex, HStack, Text, VStack } from "@chakra-ui/react"
 import { signIn, signOut } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from 'next/router'
 import { useContext, useState } from "react"
 import { UserContext } from "../context/UserContext"
 
@@ -11,7 +10,6 @@ import { UserContext } from "../context/UserContext"
 export default function Home() {
 
     const user = useContext(UserContext)
-    const { push } = useRouter()
     const [isLoading, setIsLoading] = useState(false)
 
     function handleSignIn() {
@@ -22,8 +20,6 @@ export default function Home() {
     function handleSignOut() {
         signOut()
     }
-
-
 
 
     return (

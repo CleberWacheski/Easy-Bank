@@ -6,10 +6,11 @@ import {
     VStack,
     Button,
     FormErrorMessage,
+    Text,
 } from '@chakra-ui/react'
 import { useContext, useState } from 'react'
 import { TransactionButtonModal } from './TransactionButtonModal'
-import {  useMutation } from 'react-query'
+import { useMutation } from 'react-query'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -52,26 +53,35 @@ export function FormTransactionsModal() {
         })
     }, {
         onSuccess: () => {
-            queryClient.invalidateQueries('finances').then(()=> {
+            queryClient.invalidateQueries('finances').then(() => {
                 refetch()
             })
         }
     })
 
     const [type, setType] = useState('')
+    const [typeError, setTypeError] = useState('')
 
     const handleCreateNewTransaction: SubmitHandler<FormPros> = async (value, event) => {
-        const data = {
-            id: uuidV4(),
-            Name: value.Name,
-            Amount: value.Amount,
-            Type: type,
-            Date: new Date()
+        if (!!type) {
+
+            const data = {
+                id: uuidV4(),
+                Name: value.Name,
+                Amount: value.Amount,
+                Type: type,
+                Date: new Date()
+            }
+
+           
+            reset()
+            setTypeError('')
+            await mutation.mutateAsync(data)
+        }
+        else {
+            setTypeError('Select Type')
         }
 
-        mutation.mutateAsync(data)
-        reset()
-    
     }
 
     const FormErrors = {
@@ -90,20 +100,37 @@ export function FormTransactionsModal() {
             <VStack
                 align='flex-start'
             >
-                <FormLabel>Name</FormLabel>
+                <FormLabel
+                    fontWeight='extrabold'
+                >
+                    Name
+                </FormLabel>
                 <Input
-                    colorScheme='teal'
+                    type='text'
+                    placeholder='Ex : Playstation 4'
+                    variant='filled'
                     {...register('Name')}
                 />
                 <FormErrorMessage>{FormErrors.Name}</FormErrorMessage>
-                <FormLabel>Amount</FormLabel>
+                <FormLabel
+                    fontWeight='extrabold'
+                >
+                    Amount
+                </FormLabel>
                 <Input
                     type='number'
+                    placeholder='Ex : 2099'
+                    variant='filled'
                     {...register('Amount')}
                 />
                 <FormErrorMessage>{FormErrors.Amount}</FormErrorMessage>
+                <Text
+                    fontSize={14}
+                    color='red'
+                    pt='15px'
+                >{typeError}</Text>
                 <HStack
-                    py='15px'
+                    pb='15px'
                 >
                     <TransactionButtonModal
                         Type='Income'
@@ -122,6 +149,7 @@ export function FormTransactionsModal() {
                         onClick={() => setType('Savings')}
                     />
                 </HStack>
+
                 <Button
                     colorScheme='teal'
                     type='submit'
