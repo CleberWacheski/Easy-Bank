@@ -1,15 +1,11 @@
 import { Box, Flex, SimpleGrid, Spinner, useMediaQuery } from "@chakra-ui/react";
-import { GetServerSideProps } from "next";
-import { unstable_getServerSession } from "next-auth";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { ChartComponent } from "../components/ChartComponent";
 import { Header } from "../components/Header";
 import { MoneyInformationCard } from "../components/MoneyInformationCard";
 import { MyGoalsCard } from "../components/MyGoalsCard";
 import { TransactionHistory } from "../components/TransactionHistory";
 import { FinancesContext } from "../context/FinancesContext";
-import { getDataFinances, useFinances } from "../hooks/useFinances";
-import { authOptions } from "./api/auth/[...nextauth]";
 
 
 export default function Dashboard() {

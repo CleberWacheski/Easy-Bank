@@ -1,4 +1,4 @@
-import { Flex, Heading, Table, TableContainer, Tbody, Th, Thead, theme, Tr } from "@chakra-ui/react";
+import { Flex, Heading, Table, TableContainer, Tbody, Th, Thead, theme, Tr, VStack } from "@chakra-ui/react";
 import { useContext } from "react";
 import { FinancesContext } from "../../context/FinancesContext";
 import { TransactionHistoryLineTable } from "./TransactionHistoryLineTable";
@@ -7,16 +7,17 @@ import { TransactionHistoryLineTable } from "./TransactionHistoryLineTable";
 
 export function TransactionHistory() {
 
-    const {data} = useContext(FinancesContext)
+    const { data } = useContext(FinancesContext)
 
-    const {Transactions} = data
- 
-    
+    const { Transactions } = data
+
+
     return (
-        <Flex
-            flexDir='column'
-            alignSelf='center'
-            py='10px'
+        <VStack
+            mt='10px'
+            w='max'
+            height={180}
+            overflowY='scroll'
         >
             <Heading
                 fontSize={18}
@@ -24,25 +25,7 @@ export function TransactionHistory() {
             >
                 Transactions history
             </Heading>
-            <TableContainer
-                overflowY='auto'
-                overflowX='hidden'
-                w='max'
-                height={140}
-                cursor='pointer'
-                css={{
-                    '&::-webkit-scrollbar': {
-                        width: '6px',
-                    },
-                    '&::-webkit-scrollbar-track': {
-                        width: '10px',
-                    },
-                    '&::-webkit-scrollbar-thumb': {
-                        background: theme.colors.gray[500],
-                        borderRadius: '24px',
-                    },
-                }}
-            >
+            <TableContainer>
                 <Table
                     size='sm'
                 >
@@ -58,8 +41,8 @@ export function TransactionHistory() {
                         </Tr>
                     </Thead>
                     <Tbody>
-                         {
-                            Transactions.map(({ Date, Name, Amount, Type,id }) => {
+                        {
+                            Transactions.map(({ Date, Name, Amount, Type, id }) => {
                                 return (
                                     <TransactionHistoryLineTable
                                         key={id}
@@ -76,6 +59,6 @@ export function TransactionHistory() {
                     </Tbody>
                 </Table>
             </TableContainer>
-        </Flex>
+        </VStack>
     )
 }

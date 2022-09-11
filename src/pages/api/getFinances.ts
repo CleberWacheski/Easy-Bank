@@ -6,41 +6,48 @@ import { authOptions } from "./auth/[...nextauth]"
 
 const getFinances = async (req: NextApiRequest, res: NextApiResponse) => {
 
-    // const { user } = await unstable_getServerSession(req, res, authOptions)
-
     if (req.method === 'GET') {
 
-        const transactions = await fauna.query(
-            q.Map(
-                q.Paginate(
-                    q.Match(
-                        q.Index('email_user_transactions'),
-                        q.Casefold('cleberwacheski99@gmail.com')
-                    )
-                ),
-                q.Lambda(x => q.Get(x))
-            )
-        )
+        const { user } = await unstable_getServerSession(req, res, authOptions)
 
-        const goals = await fauna.query(
-            q.Map(
-                q.Paginate(
-                    q.Match(
-                        q.Index('user_email_goals'),
-                        q.Casefold('cleberwacheski99@gmail.com')
-                    )
-                ),
-                q.Lambda(x => q.Get(x))
-            )
-        )
+        if (!!user) {
 
-        const data = {
-            transactions,
-            goals
+
+            const transactions = await fauna.query(
+                q.Map(
+                    q.Paginate(
+                        q.Match(
+                            q.Index('email_user_transactions'),
+                            q.Casefold(user.email)
+                        )
+                    ),
+                    q.Lambda(x => q.Get(x))
+                )
+            )
+
+            const goals = await fauna.query(
+                q.Map(
+                    q.Paginate(
+                        q.Match(
+                            q.Index('user_email_goals'),
+                            q.Casefold(user.email)
+                        )
+                    ),
+                    q.Lambda(x => q.Get(x))
+                )
+            )
+
+            const data = {
+                transactions,
+                goals
+            }
+
+            return res.json(data)
+
         }
-
-         return res.json(data)
-
+        else {
+            res.status(404).end('User not found')
+        }
 
     }
     else {

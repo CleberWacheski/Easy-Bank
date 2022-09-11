@@ -1,7 +1,8 @@
 import { Avatar, Button, Flex, HStack, Text, VStack } from "@chakra-ui/react"
 import { signIn, signOut } from "next-auth/react"
 import Image from "next/image"
-import {useRouter} from 'next/router'
+import Link from "next/link"
+import { useRouter } from 'next/router'
 import { useContext, useState } from "react"
 import { UserContext } from "../context/UserContext"
 
@@ -10,8 +11,8 @@ import { UserContext } from "../context/UserContext"
 export default function Home() {
 
     const user = useContext(UserContext)
-    const {push} = useRouter()
-    const [isLoading,setIsLoading] = useState(false)
+    const { push } = useRouter()
+    const [isLoading, setIsLoading] = useState(false)
 
     function handleSignIn() {
         signIn('google')
@@ -22,10 +23,7 @@ export default function Home() {
         signOut()
     }
 
-    function handleRedirect () {
-        setIsLoading(true)
-        push('/dashboard')
-    }
+
 
 
     return (
@@ -64,18 +62,20 @@ export default function Home() {
                             <Button
                                 colorScheme='teal'
                                 size='lg'
-                                onClick={handleRedirect}
+                                onClick={()=> setIsLoading(true)}
                                 isLoading={isLoading}
                             >
                                 <HStack spacing='4px' >
-                                    <Text
-                                        color='white'
-                                        fontSize={22}
-                                        fontWeight='semibold'
-                                        letterSpacing='tighter'
-                                    >
-                                        easy bank
-                                    </Text>
+                                    <Link href={'/dashboard'}>
+                                        <Text
+                                            color='white'
+                                            fontSize={22}
+                                            fontWeight='semibold'
+                                            letterSpacing='tighter'
+                                        >
+                                            easy bank
+                                        </Text>
+                                    </Link>
                                 </HStack>
                             </Button>
 
