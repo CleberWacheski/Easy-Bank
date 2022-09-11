@@ -11,9 +11,7 @@ import { TransactionComponent } from '../Modal/TransactionsModal'
 
 export function NavigationMobile() {
     return (
-        <Menu
-
-        >
+        <Menu>
             <MenuButton
                 colorScheme='teal'
                 aria-label='Open Menu Navigation'
