@@ -1,4 +1,4 @@
-import { useQuery, UseQueryOptions } from "react-query"
+import { useQuery } from "react-query"
 import { api } from "../services/api"
 
 export async function getDataFinances() {
@@ -20,6 +20,6 @@ export async function getDataFinances() {
 
 export function useFinances() {
     return useQuery('finances',getDataFinances, {
-        staleTime: 1000 * 10,
+        staleTime: 1000 * 5,
     })
 }

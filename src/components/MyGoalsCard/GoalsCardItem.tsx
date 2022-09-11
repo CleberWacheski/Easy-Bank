@@ -1,4 +1,4 @@
-import { CloseButton, Flex, HStack, Icon, Progress, Stack, Text, VStack } from "@chakra-ui/react";
+import { CloseButton, Flex, HStack, Icon, Progress, Stack, Text } from "@chakra-ui/react";
 import { ElementType, useContext } from "react";
 import { useMutation } from "react-query";
 import { FinancesContext } from "../../context/FinancesContext";

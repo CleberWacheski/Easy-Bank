@@ -6,7 +6,6 @@ import { FinancesContext } from "../../context/FinancesContext";
 import { progressCalculation } from "../../utils/progressCalculation";
 import { GoalsModal } from "../Modal/GoalsModal/Modal";
 import { FcSearch } from 'react-icons/fc'
-import { BiSearch } from "react-icons/bi";
 
 export function MyGoalsCard() {
 

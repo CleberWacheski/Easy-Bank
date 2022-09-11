@@ -3,19 +3,15 @@ import {
     ModalOverlay,
     ModalContent,
     ModalHeader,
-    ModalFooter,
     ModalBody,
     ModalCloseButton,
     useDisclosure,
     Icon,
     Text,
     HStack,
-    IconButton,
 } from '@chakra-ui/react'
 import { MdAddBox } from 'react-icons/md'
-import {AddIcon} from '@chakra-ui/icons'
 import { NavigationLink } from '../../DrawerNavigation/NavigationLink'
-import { useState } from 'react'
 import { FormTransactionsModal } from './FormTransactionsModal'
 
 
