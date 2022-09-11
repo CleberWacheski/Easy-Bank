@@ -1,4 +1,3 @@
-import { HamburgerIcon } from '@chakra-ui/icons'
 import {
     Drawer,
     DrawerBody,
@@ -6,44 +5,35 @@ import {
     DrawerOverlay,
     DrawerContent,
     DrawerCloseButton,
-    useDisclosure,
     HStack,
     Text,
     VStack,
-    IconButton,
 } from '@chakra-ui/react'
 import Image from 'next/image'
-import { useRef } from 'react'
 import { HiHome } from 'react-icons/hi'
 import { IoLogOut } from 'react-icons/io5'
 import { GoalsComponent } from '../Modal/GoalsModal'
 import { TransactionComponent } from '../Modal/TransactionsModal'
 import { NavigationLink } from './NavigationLink'
 import { useRouter } from 'next/router'
+import { MutableRefObject } from 'react'
+
+interface DrawerProps {
+    isOpen : boolean;
+    onClose : ()=> void;
+    btnRef : MutableRefObject<HTMLButtonElement>
+}
 
 
-export function DrawerNavigation() {
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    const {push} = useRouter()
-    const btnRef = useRef()
+export function DrawerNavigation({btnRef,isOpen,onClose}: DrawerProps) {
+
+    const { push } = useRouter()
 
     function handleSignOut () {
         push('/')
-        
     }
 
     return (
-        <>
-            <IconButton 
-                ref={btnRef} 
-                colorScheme='teal' 
-                aria-label='Open Drawer Navigation'
-                onClick={onOpen}
-                icon={<HamburgerIcon/>}
-                fontSize={22}
-                fontWeight='extrabold'
-            />
-    
             <Drawer
                 isOpen={isOpen}
                 placement='left'
@@ -105,6 +95,5 @@ export function DrawerNavigation() {
 
                 </DrawerContent>
             </Drawer>
-        </>
     )
 }
