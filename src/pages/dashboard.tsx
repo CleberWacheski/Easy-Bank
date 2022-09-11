@@ -14,10 +14,8 @@ import { authOptions } from "./api/auth/[...nextauth]";
 
 export default function Dashboard() {
 
-    useFinances()
     const { isLoading } = useContext(FinancesContext)
     const [isLess] = useMediaQuery('(max-width: 1100px)')
-
 
     return (
         <Box>
