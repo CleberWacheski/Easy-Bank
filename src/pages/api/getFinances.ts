@@ -6,7 +6,7 @@ import { authOptions } from "./auth/[...nextauth]"
 
 const getFinances = async (req: NextApiRequest, res: NextApiResponse) => {
 
-    const { user } = await unstable_getServerSession(req, res, authOptions)
+    // const { user } = await unstable_getServerSession(req, res, authOptions)
 
     if (req.method === 'GET') {
 
@@ -15,7 +15,7 @@ const getFinances = async (req: NextApiRequest, res: NextApiResponse) => {
                 q.Paginate(
                     q.Match(
                         q.Index('email_user_transactions'),
-                        q.Casefold(user.email)
+                        q.Casefold('cleberwacheski99@gmail.com')
                     )
                 ),
                 q.Lambda(x => q.Get(x))
@@ -27,7 +27,7 @@ const getFinances = async (req: NextApiRequest, res: NextApiResponse) => {
                 q.Paginate(
                     q.Match(
                         q.Index('user_email_goals'),
-                        q.Casefold(user.email)
+                        q.Casefold('cleberwacheski99@gmail.com')
                     )
                 ),
                 q.Lambda(x => q.Get(x))
