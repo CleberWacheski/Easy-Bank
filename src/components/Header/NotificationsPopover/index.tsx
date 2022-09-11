@@ -2,7 +2,6 @@ import {
     Popover,
     PopoverTrigger,
     PopoverContent,
-    PopoverHeader,
     PopoverBody,
     PopoverArrow,
     PopoverCloseButton,
@@ -27,10 +26,12 @@ export function NotificationsPopover() {
         return acc
     }, 0)
 
+
+
     const MessagePopover = () => {
 
         return (
-            (Goals.every((goal) => goal.Amount > SumarySavings) || !Goals[0].Amount) &&
+            (Goals.every((goal) => goal?.Amount > SumarySavings) || !Goals[0]?.Amount) &&
 
             (
                 <Text>
@@ -63,7 +64,7 @@ export function NotificationsPopover() {
                     {Goals.map((goal) => {
 
                         return (
-                            (progressCalculation(SumarySavings, goal.Amount) === 100) &&
+                            (progressCalculation(SumarySavings, goal?.Amount) === 100) &&
                             (
                                 <Text
                                     key={goal.id}

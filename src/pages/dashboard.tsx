@@ -37,7 +37,6 @@ export default function Dashboard() {
                     columns={isLess ? 0 : 2}
                     row={isLess ? 2 : 0}
                     px='20px' 
-                    
                     pb={(isLess) ? '4%' : 0}
                     pt='100px'
                 >
