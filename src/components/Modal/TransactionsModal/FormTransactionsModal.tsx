@@ -7,6 +7,8 @@ import {
     Button,
     FormErrorMessage,
     Text,
+    Stack,
+    Flex,
 } from '@chakra-ui/react'
 import { useContext, useState } from 'react'
 import { TransactionButtonModal } from './TransactionButtonModal'
@@ -128,8 +130,10 @@ export function FormTransactionsModal() {
                     color='red'
                     pt='15px'
                 >{typeError}</Text>
-                <HStack
+                <Flex
                     pb='15px'
+                    gap={5}
+                    flexWrap='wrap'
                 >
                     <TransactionButtonModal
                         size='sm'
@@ -150,7 +154,7 @@ export function FormTransactionsModal() {
                         active={type}
                         onClick={() => setType('Savings')}
                     />
-                </HStack>
+                </Flex>
 
                 <Button
                     colorScheme='teal'

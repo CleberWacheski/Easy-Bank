@@ -6,7 +6,6 @@ import { useContext, useState } from "react"
 import { UserContext } from "../context/UserContext"
 
 
-
 export default function Home() {
 
     const user = useContext(UserContext)
@@ -62,7 +61,7 @@ export default function Home() {
                                 isLoading={isLoading}
                             >
                                 <HStack spacing='4px' >
-                                    <Link href={'/dashboard'}>
+                                    <Link  href='/dashboard' prefetch={false}>
                                         <Text
                                             color='white'
                                             fontSize={22}
@@ -119,8 +118,6 @@ export default function Home() {
                             </HStack>
                         </Button>
                     </VStack>
-
-
             }
 
         </Flex>

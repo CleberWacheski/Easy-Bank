@@ -21,6 +21,7 @@ export default function Dashboard() {
                     bg='teal'
                     justifyContent='center'
                     align='center'
+                    height='100vh'
                 >
                     <Spinner
                         thickness='8px'

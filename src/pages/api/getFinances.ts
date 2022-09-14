@@ -9,8 +9,12 @@ const getFinances = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'GET') {
 
         try {
-            
+        
             const { user } = await unstable_getServerSession(req, res, authOptions)
+
+            if (!user)  {
+                res.status(401).end('Unauthorized')
+            }
 
             const transactions = await fauna.query(
                 q.Map(

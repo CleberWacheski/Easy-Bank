@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import { createContext, ReactNode } from "react";
 import { useFinances } from "../hooks/useFinances";
 
@@ -42,6 +43,8 @@ export const FinancesContext = createContext({} as FinancesContextProps)
 export function FinancesProvider({ children }: FinancesProviderProps) {
 
     
+   
+
     const { data, isLoading, refetch, isFetching } = useFinances()
 
     return (
@@ -49,4 +52,7 @@ export function FinancesProvider({ children }: FinancesProviderProps) {
             {children}
         </FinancesContext.Provider>
     )
+
+
+
 }
