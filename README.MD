@@ -18,11 +18,6 @@
 
 </h1>
 
-
-## Demonstração :rocket: 
-
-[Easy Bank - Vercel](https://easy-bank-sable.vercel.app/)
-
 ## Tecnologias :hammer_and_pick:
 
 As seguintes ferramentas foram usadas na construção do projeto:
